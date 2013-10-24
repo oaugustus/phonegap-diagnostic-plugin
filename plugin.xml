@@ -22,7 +22,7 @@
             </feature>
         </config-file>
 
-        <source-file src="src/android/Diagnostic.java" target-dir="src/com/neton/cordova/diagnostic" />
+        <source-file src="src/android/com/neton/Diagnostic.java" target-dir="src/com/neton/cordova/diagnostic" />
     </platform>
 
 </plugin>
