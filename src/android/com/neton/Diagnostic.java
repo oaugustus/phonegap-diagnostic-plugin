@@ -69,9 +69,9 @@ public class Diagnostic extends CordovaPlugin {
         Log.d(LOG_TAG, "Location enabled: " + result);
 
         if (result)
-            callbackContext.success();
+            callbackContext.success("true");
         else
-            callbackContext.error();
+            callbackContext.success("false");
     }
     
     /**
@@ -93,9 +93,9 @@ public class Diagnostic extends CordovaPlugin {
         boolean result = isLocationProviderEnabled(LocationManager.GPS_PROVIDER);
         Log.d(LOG_TAG, "GPS enabled: " + result);
         if (result)
-            callbackContext.success();
+            callbackContext.success("true");
         else
-            callbackContext.error();
+            callbackContext.success("false");
 
     }
 
@@ -111,9 +111,9 @@ public class Diagnostic extends CordovaPlugin {
         Log.d(LOG_TAG, "Wireless Network Location enabled: " + result);
 
         if (result)
-            callbackContext.success();
+            callbackContext.success("true");
         else
-            callbackContext.error();
+            callbackContext.success("false");
 
     }
 
@@ -134,9 +134,9 @@ public class Diagnostic extends CordovaPlugin {
         Log.d(LOG_TAG, "Wifi enabled: " + result);
 
         if (result)
-            callbackContext.success();
+            callbackContext.success("true");
         else
-            callbackContext.error();
+            callbackContext.success("false");
 
     }
     
@@ -162,9 +162,9 @@ public class Diagnostic extends CordovaPlugin {
         Log.d(LOG_TAG, "Bluetooth enabled: " + result);
 
         if (result)
-            callbackContext.success();
+            callbackContext.success("true");
         else
-            callbackContext.error();
+            callbackContext.success("false");
 
     }
     
