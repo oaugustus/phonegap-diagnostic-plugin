@@ -19,39 +19,37 @@ import android.os.Looper;
 import android.provider.Settings;
 import android.util.Log;
 
-import com.phonegap.api.Plugin;
-import com.phonegap.api.PluginResult;
+import org.apache.cordova.*;
+import org.apache.cordova.api.*;  // for Cordova 2.9
 
-public class Diagnostic extends Plugin {
+public class Diagnostic extends CordovaPlugin {
 
     private static final String LOG_TAG = "Diagnostic";
 
     
     @Override
-    public PluginResult execute(String action, JSONArray args, String callbackId) {
+    public execute execute(String action, JSONArray args, String callbackId) {
         Log.d(LOG_TAG, "Executing Diagnostic Plugin");
+
         if ("isLocationEnabled".equals(action))
-            return new PluginResult(Status.OK, isLocationEnabled());
+            isLocationEnabled(data, callbackContext);
         else if ("switchToLocationSettings".equals(action)) {
-            switchToLocationSettings();
-            return new PluginResult(Status.OK);
+            switchToLocationSettings(data, callbackContext);
         } else if ("isGpsEnabled".equals(action))
-            return new PluginResult(Status.OK, isGpsEnabled());
+            isGpsEnabled(data, callbackContext);
         else if ("isWirelessNetworkLocationEnabled".equals(action))
-            return new PluginResult(Status.OK, isWirelessNetworkLocationEnabled());
+            isWirelessNetworkLocationEnabled(data, callbackContext);
         else if ("isWifiEnabled".equals(action))
-            return new PluginResult(Status.OK, isWifiEnabled());
+            isWifiEnabled(data, callbackContext);
         else if ("switchToWifiSettings".equals(action)) {
-            switchToWifiSettings();
-            return new PluginResult(Status.OK);
+            switchToWifiSettings(data, callbackContext);
         } else if ("isBluetoothEnabled".equals(action))
-            return new PluginResult(Status.OK, isBluetoothEnabled());
+            isBluetoothEnabled(data, callbackContext);
         else if ("switchToBluetoothSettings".equals(action)) {
-            switchToBluetoothSettings();
-            return new PluginResult(Status.OK);
+            switchToBluetoothSettings(data, callbackContext);
         } else {
             Log.d(LOG_TAG, "Invalid action");
-            return new PluginResult(Status.INVALID_ACTION);
+            callbackContext.error("Invalid action");
         }
     }
 
@@ -61,19 +59,20 @@ public class Diagnostic extends Plugin {
      * 
      * @returns {boolean} The status of location services in device settings.
      */
-    public boolean isLocationEnabled() {
+    public void isLocationEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
         boolean result = (isGpsEnabled() || isWirelessNetworkLocationEnabled());
         Log.d(LOG_TAG, "Location enabled: " + result);
-        return result;
+        callbackContext.success(result);
     }
     
     /**
      * Requests that the user enable the location in device settings.
      */
-    public void switchToLocationSettings() {
+    public void switchToLocationSettings(JSONArray data, CallbackContext callbackContext) throws JSONException {
         Log.d(LOG_TAG, "Switch to Location Settings");
         Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         ctx.startActivity(settingsIntent);
+        callbackContext.success();
     }
     
     /**
@@ -81,10 +80,10 @@ public class Diagnostic extends Plugin {
      * 
      * @returns {boolean} The status of GPS in device settings.
      */
-    public boolean isGpsEnabled() {
+    public void isGpsEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
         boolean result = isLocationProviderEnabled(LocationManager.GPS_PROVIDER);
         Log.d(LOG_TAG, "GPS enabled: " + result);
-        return result;
+        callbackContext.success(result);
     }
 
     /**
@@ -94,13 +93,13 @@ public class Diagnostic extends Plugin {
      * @returns {boolean} The status of wireless network location in device
      *          settings.
      */
-    public boolean isWirelessNetworkLocationEnabled() {
+    public void isWirelessNetworkLocationEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
         boolean result = isLocationProviderEnabled(LocationManager.NETWORK_PROVIDER);
         Log.d(LOG_TAG, "Wireless Network Location enabled: " + result);
-        return result;
+        callbackContext.success(result);
     }
 
-    private boolean isLocationProviderEnabled(String provider) {
+    private void isLocationProviderEnabled(String provider) {
         LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(provider);
     }
@@ -110,20 +109,21 @@ public class Diagnostic extends Plugin {
      * 
      * @returns {boolean} The status of Wi-Fi in device settings.
      */
-    public boolean isWifiEnabled() {
+    public void isWifiEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
         WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
         boolean result = wifiManager.isWifiEnabled();
         Log.d(LOG_TAG, "Wifi enabled: " + result);
-        return result;
+        callbackContext.success(result);
     }
     
     /**
      * Requests that the user enable the Wi-Fi in device settings.
      */
-    public void switchToWifiSettings() {
+    public void switchToWifiSettings(JSONArray data, CallbackContext callbackContext) throws JSONException {
         Log.d(LOG_TAG, "Switch to Wifi Settings");
         Intent settingsIntent = new Intent(Settings.ACTION_WIFI_SETTINGS);
         ctx.startActivity(settingsIntent);
+        callbackContext.success();
     }
     
     /**
@@ -131,20 +131,21 @@ public class Diagnostic extends Plugin {
      * 
      * @returns {boolean} The status of Bluetooth in device settings.
      */
-    public boolean isBluetoothEnabled() {
+    public void isBluetoothEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
         Looper.prepare();
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         boolean result = bluetoothAdapter.isEnabled();
         Log.d(LOG_TAG, "Bluetooth enabled: " + result);
-        return result;
+        callbackContext.success(result);
     }
     
     /**
      * Requests that the user enable the Bluetooth in device settings.
      */
-    public void switchToBluetoothSettings() {
+    public void switchToBluetoothSettings(JSONArray data, CallbackContext callbackContext) throws JSONException {
         Log.d(LOG_TAG, "Switch to Bluetooth Settings");
         Intent settingsIntent = new Intent(Settings.ACTION_BLUETOOTH_SETTINGS);
         ctx.startActivity(settingsIntent);
+        callbackContext.success();
     }
 }
