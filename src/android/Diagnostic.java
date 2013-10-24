@@ -5,7 +5,7 @@
  *  
 **/
 
-package org.neton;
+package com.neton;
 
 import org.apache.cordova.api.PluginResult.Status;
 import org.json.JSONArray;

@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="org.neton.cordova.diagnostic"
+    id="com.neton.cordova.diagnostic"
     version="0.2.3">
     <name>Diagnostic</name>
     <description>Cordova Diagnostic Plugin</description>
@@ -18,11 +18,11 @@
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
             <feature name="Diagnostic" >
-                <param name="android-package" value="org.neton.cordova.diagnostic"/>
+                <param name="android-package" value="com.neton.cordova.diagnostic"/>
             </feature>
         </config-file>
 
-        <source-file src="src/android/Diagnostic.java" target-dir="src/org/neton/cordova/diagnostic" />
+        <source-file src="src/android/Diagnostic.java" target-dir="src/com/neton/cordova/diagnostic" />
     </platform>
 
 </plugin>
