@@ -28,9 +28,10 @@ public class Diagnostic extends CordovaPlugin {
 
     
     @Override
-    public execute execute(String action, JSONArray args, String callbackId) {
+    public boolean execute(String action, JSONArray args, String callbackId) {
         Log.d(LOG_TAG, "Executing Diagnostic Plugin");
 
+        
         if ("isLocationEnabled".equals(action))
             isLocationEnabled(data, callbackContext);
         else if ("switchToLocationSettings".equals(action)) {
@@ -50,7 +51,11 @@ public class Diagnostic extends CordovaPlugin {
         } else {
             Log.d(LOG_TAG, "Invalid action");
             callbackContext.error("Invalid action");
+
+            return false;
         }
+
+        return true;
     }
 
     
@@ -62,7 +67,11 @@ public class Diagnostic extends CordovaPlugin {
     public void isLocationEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
         boolean result = (isGpsEnabled() || isWirelessNetworkLocationEnabled());
         Log.d(LOG_TAG, "Location enabled: " + result);
-        callbackContext.success(result);
+
+        if (result)
+            callbackContext.success();
+        else
+            callbackContext.error();
     }
     
     /**
@@ -83,7 +92,11 @@ public class Diagnostic extends CordovaPlugin {
     public void isGpsEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
         boolean result = isLocationProviderEnabled(LocationManager.GPS_PROVIDER);
         Log.d(LOG_TAG, "GPS enabled: " + result);
-        callbackContext.success(result);
+        if (result)
+            callbackContext.success();
+        else
+            callbackContext.error();
+
     }
 
     /**
@@ -96,12 +109,18 @@ public class Diagnostic extends CordovaPlugin {
     public void isWirelessNetworkLocationEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
         boolean result = isLocationProviderEnabled(LocationManager.NETWORK_PROVIDER);
         Log.d(LOG_TAG, "Wireless Network Location enabled: " + result);
-        callbackContext.success(result);
+
+        if (result)
+            callbackContext.success();
+        else
+            callbackContext.error();
+
     }
 
-    private void isLocationProviderEnabled(String provider) {
-        LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
-        return locationManager.isProviderEnabled(provider);
+    private void isLocationProviderEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
+        //LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
+        //return locationManager.isProviderEnabled(provider);
+        callbackContext.success();
     }
 
     /**
@@ -113,7 +132,12 @@ public class Diagnostic extends CordovaPlugin {
         WifiManager wifiManager = (WifiManager) ctx.getSystemService(Context.WIFI_SERVICE);
         boolean result = wifiManager.isWifiEnabled();
         Log.d(LOG_TAG, "Wifi enabled: " + result);
-        callbackContext.success(result);
+
+        if (result)
+            callbackContext.success();
+        else
+            callbackContext.error();
+
     }
     
     /**
@@ -136,7 +160,12 @@ public class Diagnostic extends CordovaPlugin {
         BluetoothAdapter bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         boolean result = bluetoothAdapter.isEnabled();
         Log.d(LOG_TAG, "Bluetooth enabled: " + result);
-        callbackContext.success(result);
+
+        if (result)
+            callbackContext.success();
+        else
+            callbackContext.error();
+
     }
     
     /**
