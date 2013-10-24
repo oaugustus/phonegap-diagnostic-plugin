@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:rim="http://www.blackberry.com/ns/widgets"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="org.neton.cordova.diagnostic"
+    id="com.neton.cordova.diagnostic"
     version="0.2.3">
     <name>Diagnostic</name>
     <description>Cordova Diagnostic Plugin</description>
