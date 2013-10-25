@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
 import android.content.Intent;
+import android.app.Activity;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.os.Looper;
@@ -80,9 +81,10 @@ public class Diagnostic extends CordovaPlugin {
      * Requests that the user enable the location in device settings.
      */
     public void switchToLocationSettings(JSONArray data, CallbackContext callbackContext) {
+        Context ctx = this.cordova.getActivity().getApplicationContext();
         Log.d(LOG_TAG, "Switch to Location Settings");
         Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        startActivity(settingsIntent);
+        ctx.startActivity(settingsIntent);
         callbackContext.success();
     }
     
