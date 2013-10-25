@@ -33,7 +33,7 @@ channel.waitForInitialization('onCordovaInfoReady');
  * phone, etc.
  * @constructor
  */
-function Device() {
+function Diagnostic() {
     this.teste = false;
 
     var me = this;
