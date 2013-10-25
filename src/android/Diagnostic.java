@@ -28,6 +28,7 @@ import org.apache.cordova.CordovaInterface;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.util.Log;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
