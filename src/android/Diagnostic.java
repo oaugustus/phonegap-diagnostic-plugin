@@ -54,8 +54,6 @@ public class Diagnostic extends CordovaPlugin {
      */
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
         super.initialize(cordova, webView);
-        Device.uuid = getUuid();
-        this.initTelephonyReceiver();
     }
 
     /**
