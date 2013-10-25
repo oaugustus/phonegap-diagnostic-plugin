@@ -101,7 +101,7 @@ public class Diagnostic extends CordovaPlugin {
           Context ctx = this.cordova.getActivity().getApplicationContext();      
           
           LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
-          LocationListener locationListener = new LocationListener();  
+          LocationListener locationListener = new MyLocationListener();  
 
           locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
     }
