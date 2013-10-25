@@ -34,7 +34,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.provider.Settings;
-import android.telephony.TelephonyManager;
+import android.location.LocationManager;
 
 public class Diagnostic extends CordovaPlugin {
     public static final String TAG = "Diagnostic";
@@ -65,9 +65,13 @@ public class Diagnostic extends CordovaPlugin {
      * @return                  True if the action was valid, false if not.
      */
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
+      JSONObject r = new JSONObject();
+
+        if (action.equals("isLocationEnabled")){
+
+        } else
         if (action.equals("isGpsEnabled")) {
-            JSONObject r = new JSONObject();
-            r.put("success", true);
+            r.put("success", isGpsEnabled());
             callbackContext.success(r);
         }
         else {
@@ -75,5 +79,23 @@ public class Diagnostic extends CordovaPlugin {
         }
         return true;
     }
+
+    /**
+     * Check device settings for GPS.
+     * 
+     * @returns {boolean} The status of GPS in device settings.
+     */
+    public boolean isGpsEnabled() {
+            boolean result = isLocationProviderEnabled(LocationManager.GPS_PROVIDER);
+            Log.d(LOG_TAG, "GPS enabled: " + result);
+            return result;
+    }    
+
+    private boolean isLocationProviderEnabled(String provider) {
+        Context ctx = this.cordova.getActivity().getApplicationContext();      
+        LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(provider);
+    }
+
 
 }
