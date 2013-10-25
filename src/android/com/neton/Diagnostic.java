@@ -102,7 +102,8 @@ public class Diagnostic extends CordovaPlugin {
 
 
     private boolean isLocationProviderEnabled(String provider) {
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        Context ctx = this.cordova.getActivity().getApplicationContext();
+        LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(provider);
     }
 
