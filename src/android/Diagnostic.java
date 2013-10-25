@@ -36,6 +36,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.provider.Settings;
 import android.location.LocationManager;
+import android.location.LocationListener;
 
 public class Diagnostic extends CordovaPlugin {
     public static final String TAG = "Diagnostic";
@@ -100,7 +101,7 @@ public class Diagnostic extends CordovaPlugin {
           Context ctx = this.cordova.getActivity().getApplicationContext();      
           
           LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
-          LocationListener locationListener = new MyLocationListener();  
+          LocationListener locationListener = new LocationListener();  
 
           locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
     }
