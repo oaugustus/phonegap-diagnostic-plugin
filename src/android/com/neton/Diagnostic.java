@@ -33,7 +33,7 @@ public class Diagnostic extends CordovaPlugin {
 
         boolean result;
         
-        if ("isLocationEnabled".equals(action))
+        if ("isLocationEnabled".equals(action)){
             result = isLocationEnabled();
 
             if (result){
@@ -41,10 +41,11 @@ public class Diagnostic extends CordovaPlugin {
             } else {
                 callbackContext.success("false");
             }
+        }
 
         else if ("switchToLocationSettings".equals(action)) {
             switchToLocationSettings(data, callbackContext);
-        } else if ("isGpsEnabled".equals(action))
+        } else if ("isGpsEnabled".equals(action)){
             result = isGpsEnabled();
 
             if (result){
@@ -52,7 +53,7 @@ public class Diagnostic extends CordovaPlugin {
             } else {
                 callbackContext.success("false");
             }
-
+        }
         else {
             Log.d(LOG_TAG, "Invalid action");
             callbackContext.error("Invalid action");
