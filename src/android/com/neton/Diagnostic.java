@@ -31,13 +31,28 @@ public class Diagnostic extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, String callbackId) {
         Log.d(LOG_TAG, "Executing Diagnostic Plugin");
 
+        boolean result;
         
         if ("isLocationEnabled".equals(action))
-            isLocationEnabled(data, callbackContext);
+            result = isLocationEnabled();
+
+            if (result){
+                callbackContext.success("true");
+            } else {
+                callbackContext.success("false");
+            }
+
         else if ("switchToLocationSettings".equals(action)) {
             switchToLocationSettings(data, callbackContext);
         } else if ("isGpsEnabled".equals(action))
-            isGpsEnabled(data, callbackContext);
+            result = isGpsEnabled();
+
+            if (result){
+                callbackContext.success("true");
+            } else {
+                callbackContext.success("false");
+            }
+
         else {
             Log.d(LOG_TAG, "Invalid action");
             callbackContext.error("Invalid action");
@@ -54,23 +69,20 @@ public class Diagnostic extends CordovaPlugin {
      * 
      * @returns {boolean} The status of location services in device settings.
      */
-    public void isLocationEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
-        boolean result = (isGpsEnabled() || isWirelessNetworkLocationEnabled());
+    public boolean isLocationEnabled() {
+        boolean result = (isGpsEnabled());
         Log.d(LOG_TAG, "Location enabled: " + result);
 
-        if (result)
-            callbackContext.success("true");
-        else
-            callbackContext.success("false");
+        return result;
     }
     
     /**
      * Requests that the user enable the location in device settings.
      */
-    public void switchToLocationSettings(JSONArray data, CallbackContext callbackContext) throws JSONException {
+    public void switchToLocationSettings(JSONArray data, CallbackContext callbackContext) {
         Log.d(LOG_TAG, "Switch to Location Settings");
         Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-        ctx.startActivity(settingsIntent);
+        startActivity(settingsIntent);
         callbackContext.success();
     }
     
@@ -79,15 +91,17 @@ public class Diagnostic extends CordovaPlugin {
      * 
      * @returns {boolean} The status of GPS in device settings.
      */
-    public void isGpsEnabled(JSONArray data, CallbackContext callbackContext) throws JSONException {
+    public boolean isGpsEnabled() {
         boolean result = isLocationProviderEnabled(LocationManager.GPS_PROVIDER);
         Log.d(LOG_TAG, "GPS enabled: " + result);
-        if (result)
-            callbackContext.success("true");
-        else
-            callbackContext.success("false");
 
+        return result;
     }
 
+
+    private boolean isLocationProviderEnabled(String provider) {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(provider);
+    }
 
 }
