@@ -68,8 +68,9 @@ public class Diagnostic extends CordovaPlugin {
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
       JSONObject r = new JSONObject();
 
-        if (action.equals("isLocationEnabled")){
-
+        if (action.equals("switchToLocationSettings")){
+          switchToLocationSettings();
+          callbackContext.success();            
         } else
         if (action.equals("isGpsEnabled")) {
             r.put("success", isGpsEnabled());
@@ -91,6 +92,16 @@ public class Diagnostic extends CordovaPlugin {
             Log.d(TAG, "GPS enabled: " + result);
             return result;
     }    
+
+    /**
+     * Requests that the user enable the location in device settings.
+     */
+    public void switchToLocationSettings() {
+            Context ctx = this.cordova.getActivity().getApplicationContext();      
+            Log.d(LOG_TAG, "Switch to Location Settings");
+            Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            ctx.startActivity(settingsIntent);
+    }
 
     private boolean isLocationProviderEnabled(String provider) {
         Context ctx = this.cordova.getActivity().getApplicationContext();      

@@ -33,7 +33,7 @@ function Diagnostic() {
 }
 
 /**
- * Get device info
+ * Check if GPS is enabled
  *
  * @param {Function} successCallback The function to call when the heading data is available
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
@@ -42,5 +42,17 @@ Diagnostic.prototype.isGpsEnabled = function(successCallback, errorCallback) {
     argscheck.checkArgs('fF', 'Diagnostic.isGpsEnabled', arguments);
     exec(successCallback, errorCallback, "Diagnostic", "isGpsEnabled", []);
 };
+
+/**
+ * Switch to Location Settings
+ *
+ * @param {Function} successCallback The function to call when the heading data is available
+ * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
+ */
+Diagnostic.prototype.switchToLocationSettings = function(successCallback, errorCallback) {
+    argscheck.checkArgs('fF', 'Diagnostic.switchToLocationSettings', arguments);
+    exec(successCallback, errorCallback, "Diagnostic", "switchToLocationSettings", []);
+};
+
 
 module.exports = new Diagnostic();
