@@ -87,7 +87,7 @@ public class Diagnostic extends CordovaPlugin {
      */
     public boolean isGpsEnabled() {
             boolean result = isLocationProviderEnabled(LocationManager.GPS_PROVIDER);
-            Log.d(LOG_TAG, "GPS enabled: " + result);
+            Log.d(TAG, "GPS enabled: " + result);
             return result;
     }    
 
