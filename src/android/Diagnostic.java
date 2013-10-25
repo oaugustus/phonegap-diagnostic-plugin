@@ -98,7 +98,7 @@ public class Diagnostic extends CordovaPlugin {
      */
     public void switchToLocationSettings() {
             Context ctx = this.cordova.getActivity().getApplicationContext();      
-            Log.d(LOG_TAG, "Switch to Location Settings");
+            Log.d(TAG, "Switch to Location Settings");
             Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
             ctx.startActivity(settingsIntent);
     }
