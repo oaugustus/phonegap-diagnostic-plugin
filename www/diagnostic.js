@@ -126,6 +126,3 @@ Diagnostic.prototype.switchToBluetoothSettings = function() {
 };
 
 module.exports = new Diagnostic();
-//cordova.addConstructor(function() {
-    //cordova.addPlugin("diagnostic", new Diagnostic());
-//});
