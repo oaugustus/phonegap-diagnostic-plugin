@@ -6,6 +6,7 @@
 **/
 
 
+
 var Diagnostic = function() {
 };
 
@@ -124,7 +125,7 @@ Diagnostic.prototype.switchToBluetoothSettings = function() {
                         []);
 };
 
-window.diagnostic = new Diagnostic();
-//cordova.addConstructor(function() {
-    //cordova.addPlugin("diagnostic", new Diagnostic());
-//});
+
+cordova.addConstructor(function() {
+    cordova.addPlugin("diagnostic", new Diagnostic());
+});
