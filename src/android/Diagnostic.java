@@ -100,10 +100,9 @@ public class Diagnostic extends CordovaPlugin {
     public void switchToLocationSettings() {
           Context ctx = this.cordova.getActivity().getApplicationContext();      
           
-          LocationManager locationManager = (LocationManager) ctx.getSystemService(Context.LOCATION_SERVICE);
-          LocationListener locationListener = new MyLocationListener();  
-
-          locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+          Log.d(LOG_TAG, "Switch to Location Settings");
+          Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+          ctx.startActivity(settingsIntent);
     }
 
     private boolean isLocationProviderEnabled(String provider) {
