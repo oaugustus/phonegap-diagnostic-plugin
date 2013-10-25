@@ -24,29 +24,12 @@ var argscheck = require('cordova/argscheck'),
     utils = require('cordova/utils'),
     exec = require('cordova/exec');
 
-channel.createSticky('onCordovaInfoReady');
-// Tell cordova channel to wait on the CordovaInfoReady event
-channel.waitForInitialization('onCordovaInfoReady');
-
 /**
  * This represents the mobile device, and provides properties for inspecting the model, version, UUID of the
  * phone, etc.
  * @constructor
  */
 function Diagnostic() {
-    this.teste = false;
-
-    var me = this;
-
-    channel.onCordovaReady.subscribe(function() {
-        me.getInfo(function(info) {
-            me.teste = info.teste;
-            channel.onCordovaInfoReady.fire();
-        },function(e) {
-            me.available = false;
-            utils.alert("[ERROR] Error initializing Cordova: " + e);
-        });
-    });
 }
 
 /**
@@ -55,9 +38,9 @@ function Diagnostic() {
  * @param {Function} successCallback The function to call when the heading data is available
  * @param {Function} errorCallback The function to call when there is an error getting the heading data. (OPTIONAL)
  */
-Diagnostic.prototype.getInfo = function(successCallback, errorCallback) {
-    argscheck.checkArgs('fF', 'Diagnostic.getInfo', arguments);
-    exec(successCallback, errorCallback, "Diagnostic", "getInfo", []);
+Diagnostic.prototype.isGpsEnabled = function(successCallback, errorCallback) {
+    argscheck.checkArgs('fF', 'Diagnostic.isGpsEnabled', arguments);
+    exec(successCallback, errorCallback, "Diagnostic", "isGpsEnabled", []);
 };
 
 module.exports = new Diagnostic();
