@@ -102,7 +102,7 @@ public class Diagnostic extends CordovaPlugin {
           
           Log.d(TAG, "Switch to Location Settings");
           Intent settingsIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-          ctx.startActivity(settingsIntent);
+          //ctx.startActivity(settingsIntent);
     }
 
     private boolean isLocationProviderEnabled(String provider) {
