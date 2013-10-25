@@ -7,7 +7,6 @@
 
 package com.neton;
 
-import org.apache.cordova.api.PluginResult.Status;
 import org.json.JSONArray;
 
 import android.bluetooth.BluetoothAdapter;
@@ -28,7 +27,7 @@ public class Diagnostic extends CordovaPlugin {
 
     
     @Override
-    public boolean execute(String action, JSONArray args, String callbackId) {
+    public boolean execute(String action, JSONArray data, CallbackContext callbackContext) {
         Log.d(LOG_TAG, "Executing Diagnostic Plugin");
 
         boolean result;
